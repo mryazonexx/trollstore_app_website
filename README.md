@@ -10,7 +10,7 @@ This is a web application built using Flask that displays a list of Trollstore a
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [From where Json](#apps.Json)
+- [From where Json](#appsJson)
 
 ## Installation
 
