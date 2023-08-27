@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Store</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+    </nav>
+    <header class="header">
+        <!-- header content -->
+    </header>
+    <div class="app-container">
+        <div class="search-bar">
+            <input type="text" id="app-search" placeholder="Search for an app" list="app-names">
+            <datalist id="app-names">
+                {% for app_name in app_names %}
+                <option value="{{ app_name }}">
+                    {% endfor %}
+            </datalist>
+            <button id="search-button">Search</button>
+        </div>
+        {% for app_name, versions in app_versions.items() %}
+        <div class="app-card">
+            <img src="{{ versions[0].icon_url }}" alt="App Icon">
+            <div class="app-details">
+                <h4>{{ app_name }}</h4>
+                <p>Version: {{ versions[0].version }}</p>
+                <p>Size: {{ versions[0].size }}</p>
+                <a class="download-button" href="{{ versions[0].download_url }}" target="_blank">Download</a>
+                <a class="install-button" href="apple-magnifier://install?url={{ versions[0].download_url }}"
+                    target="_blank">Install</a>
+                <button class="versions-button">Show Versions</button>
+            </div>
+            <div class="versions-container">
+                {% for version_data in versions %}
+                <div class="version">
+                    <p>Version: {{ version_data.version }}</p>
+                    <p>Size: {{ version_data.size }}</p>
+                    <a class="download-button" href="{{ version_data.download_url }}" target="_blank">Download</a>
+                    <a class="install-button" href="apple-magnifier://install?url={{ version_data.download_url }}"
+                        target="_blank">Install</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <footer class="footer">
+        <!-- footer content -->
+    </footer>
+    <script>
+        var app_versions = {{ app_versions | tojson }};
+        var app_names = {{ app_names | tojson }};
+    </script>
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
